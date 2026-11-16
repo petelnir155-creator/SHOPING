@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { History, ListChecks, Settings2, Star, X } from 'lucide-react'
+import { History, Home, ListChecks, Settings2, Star, X } from 'lucide-react'
 import ConnectionBadge from './components/ConnectionBadge'
 import CategoryManager from './components/CategoryManager'
 import TabBar from './components/TabBar'
 import { useShoppingData } from './hooks/useShoppingData'
+import BlueprintView from './views/BlueprintView'
 import FavoritesView from './views/FavoritesView'
 import HistoryView from './views/HistoryView'
 import ListView from './views/ListView'
@@ -22,6 +23,7 @@ export default function ShoppingApp() {
 
   const tabs = [
     { id: 'list', label: t.tabs.list, icon: ListChecks, badge: pendingCount, View: ListView },
+    { id: 'blueprint', label: t.tabs.blueprint, icon: Home, View: BlueprintView },
     { id: 'favorites', label: t.tabs.favorites, icon: Star, View: FavoritesView },
     { id: 'history', label: t.tabs.history, icon: History, View: HistoryView },
   ]

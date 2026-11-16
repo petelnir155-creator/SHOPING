@@ -22,11 +22,15 @@ export function useShoppingData() {
     limit: 500,
   })
 
-  const tables = [categoriesT, itemsT, favoritesT, historyT]
+  // The household base list (read-only in the UI; edit it in Supabase / 002_blueprint.sql)
+  const blueprintT = useRealtimeTable('blueprint_items', { orderBy: 'position' })
+
+  const tables = [categoriesT, itemsT, favoritesT, historyT, blueprintT]
   const categories = categoriesT.rows
   const items = itemsT.rows
   const favorites = favoritesT.rows
   const history = historyT.rows
+  const blueprint = blueprintT.rows
   const { setRows: setCategories } = categoriesT
   const { setRows: setItems } = itemsT
   const { setRows: setFavorites } = favoritesT
@@ -55,9 +59,16 @@ export function useShoppingData() {
 
   // ---------- plumbing ----------
   const reloadAll = useCallback(
-    () => Promise.all([categoriesT.reload(), itemsT.reload(), favoritesT.reload(), historyT.reload()]),
+    () =>
+      Promise.all([
+        categoriesT.reload(),
+        itemsT.reload(),
+        favoritesT.reload(),
+        historyT.reload(),
+        blueprintT.reload(),
+      ]),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [categoriesT.reload, itemsT.reload, favoritesT.reload, historyT.reload],
+    [categoriesT.reload, itemsT.reload, favoritesT.reload, historyT.reload, blueprintT.reload],
   )
 
   /** Awaits a Supabase request; on failure shows the error and re-syncs from the server. */
@@ -239,6 +250,7 @@ export function useShoppingData() {
     items,
     favorites,
     history,
+    blueprint,
     // derived
     loading,
     error,

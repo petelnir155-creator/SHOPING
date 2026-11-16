@@ -6,7 +6,7 @@ export const t = {
   appName: 'רשימת קניות',
   uncategorized: 'אחר',
 
-  tabs: { list: 'רשימה', favorites: 'מועדפים', history: 'היסטוריה' },
+  tabs: { list: 'רשימה', blueprint: 'בסיס הבית', favorites: 'מועדפים', history: 'היסטוריה' },
   status: { connected: 'מחובר', connecting: 'מתחבר…', offline: 'לא מחובר' },
 
   add: {
@@ -34,6 +34,15 @@ export const t = {
     unfavorite: 'הסרה ממועדפים',
     add: 'הוספה לרשימה',
     onList: 'כבר ברשימה',
+  },
+
+  blueprint: {
+    empty: 'רשימת הבסיס ריקה',
+    emptyHint: 'הריצו את supabase/002_blueprint.sql ב-Supabase',
+    summary: (on, total) => `${on} מתוך ${total} סומנו לקנייה`,
+    hint: 'לחצו על פריט כדי לסמן אותו לקנייה (V). לחיצה נוספת מסירה אותו מהרשימה.',
+    addMissing: 'סמנו את כל הקטגוריה',
+    remove: 'הסרה מהרשימה',
   },
 
   favorites: {
