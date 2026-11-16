@@ -29,7 +29,7 @@ React + Tailwind + Supabase Realtime. Hebrew / RTL, mobile-first, built for two 
 
 | Screen | What it does |
 | --- | --- |
-| **רשימה** | Add bar (type + Enter, `חלב x2` sets quantity), quick-add chips from favorites/past purchases, items grouped by category. Tap the circle to check off (moves to "הושלמו"; tap again to undo). Tap the text to edit name / quantity / category / delete. Star = favorite. **סיום קנייה** saves checked items to history and clears them. |
+| **רשימה** | Add bar (type + Enter, `חלב x2` sets quantity), quick-add chips from favorites/past purchases, items grouped by category. Tap the circle to check off (moves to "הושלמו"; tap again to undo). Tap the text to edit name / quantity / category / delete, or swipe a row right for quick Edit / Delete. Star = favorite. **סיום קנייה** saves checked items to history and clears them. |
 | **בסיס הבית** | The fixed household list by category. Tap a row → V (added to the list); tap the V again to remove it. "סמנו את כל הקטגוריה" adds a whole category. Star items here to make them favorites. |
 | **מועדפים** | Your starred items by category. Tap a row to re-add it to the list. |
 | **היסטוריה** | Past trips by date. Re-add a single item, or "הוספת הכל" for the whole trip. |
@@ -50,6 +50,11 @@ src/components/            small reusable pieces (ItemRow, QuickRow, AddItemBar,
 src/views/                 one file per tab
 src/ShoppingApp.jsx        shell: header, tabs, category manager
 ```
+
+### Smart categories
+While you type, `src/lib/categorize.js` picks the category: exact Blueprint match → keyword dictionary →
+favorites/history. The selector under the input shows the choice ("אוטומטי · חיות מחמד"); choosing a
+category by hand applies to the next item only. To teach it new words, add them to `RULES` in that file.
 
 ### Changing the base list
 Edit rows in Supabase → *Table Editor → blueprint_items* (changes appear live in the app), or edit the

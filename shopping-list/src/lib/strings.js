@@ -13,6 +13,8 @@ export const t = {
     placeholder: 'מה צריך לקנות? (למשל: חלב x2)',
     submit: 'הוספה',
     category: 'קטגוריה',
+    auto: 'קטגוריה: אוטומטי',
+    autoWithName: (name) => `אוטומטי · ${name}`,
   },
 
   list: {
@@ -30,6 +32,7 @@ export const t = {
     save: 'שמירה',
     cancel: 'ביטול',
     delete: 'מחיקה',
+    edit: 'עריכה',
     favorite: 'הוספה למועדפים',
     unfavorite: 'הסרה ממועדפים',
     add: 'הוספה לרשימה',

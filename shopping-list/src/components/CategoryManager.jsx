@@ -18,7 +18,7 @@ function CategoryRow({ category, onRename, onDelete }) {
   return (
     <div className="flex items-center gap-2">
       <input
-        dir="auto"
+        dir="rtl"
         value={name}
         onChange={(e) => setName(e.target.value)}
         onBlur={commit}
@@ -74,7 +74,7 @@ export default function CategoryManager({ categories, onAdd, onRename, onDelete,
 
         <form onSubmit={submit} className="mt-4 flex gap-2">
           <input
-            dir="auto"
+            dir="rtl"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder={t.categories.newPlaceholder}

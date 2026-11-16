@@ -8,12 +8,12 @@ export default function CompletedSection({ count, onFinish, children }) {
   if (!count) return null
 
   return (
-    <section className="overflow-hidden rounded-2xl bg-white/70 ring-1 ring-stone-200">
+    <section className="overflow-hidden rounded-xl bg-white/70 ring-1 ring-stone-200">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="flex h-12 w-full items-center justify-between px-4 text-stone-600"
+        className="flex h-9 w-full items-center justify-between px-3 text-sm text-stone-600"
       >
         <span className="font-semibold">
           {t.list.completed} ({count})
@@ -23,11 +23,11 @@ export default function CompletedSection({ count, onFinish, children }) {
 
       {open && <div className="divide-y divide-stone-100">{children}</div>}
 
-      <div className="border-t border-stone-100 p-3">
+      <div className="border-t border-stone-100 p-2">
         <button
           type="button"
           onClick={onFinish}
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-stone-800 font-semibold text-white active:bg-stone-900"
+          className="flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-stone-800 font-semibold text-white active:bg-stone-900"
         >
           <PackageCheck size={20} /> {t.list.finish}
         </button>

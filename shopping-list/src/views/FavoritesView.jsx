@@ -21,7 +21,7 @@ export default function FavoritesView({ data }) {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {groups.map(({ category, rows }) => (
         <CategoryGroup
           key={category?.id ?? 'none'}

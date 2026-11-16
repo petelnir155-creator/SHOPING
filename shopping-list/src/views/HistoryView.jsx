@@ -34,7 +34,7 @@ export default function HistoryView({ data }) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {trips.map((trip) => (
         <section
           key={trip.id}

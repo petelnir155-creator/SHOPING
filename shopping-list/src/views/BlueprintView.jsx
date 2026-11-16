@@ -31,7 +31,7 @@ export default function BlueprintView({ data }) {
   }
 
   return (
-    <div className="space-y-3 pt-3">
+    <div className="space-y-2 pt-2">
       <div className="px-1 text-sm text-stone-600">
         <p className="font-semibold">{t.blueprint.summary(onListCount, blueprint.length)}</p>
         <p>{t.blueprint.hint}</p>

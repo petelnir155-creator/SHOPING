@@ -30,10 +30,10 @@ export default function ShoppingApp() {
   const ActiveView = tabs.find((x) => x.id === tab).View
 
   return (
-    <div className="mx-auto min-h-screen max-w-xl pb-28">
+    <div className="mx-auto min-h-screen max-w-xl pb-20">
       <header className="sticky top-0 z-20 bg-emerald-600 pt-[env(safe-area-inset-top)] text-white shadow">
-        <div className="flex h-14 items-center gap-3 px-4">
-          <h1 className="flex-1 text-xl font-bold">{t.appName}</h1>
+        <div className="flex h-12 items-center gap-2 px-3">
+          <h1 className="flex-1 text-lg font-bold">{t.appName}</h1>
           {data.items.length > 0 && (
             <span className="text-sm text-emerald-50">
               {doneCount}/{data.items.length}
@@ -52,7 +52,7 @@ export default function ShoppingApp() {
       </header>
 
       {data.error && (
-        <div className="mx-4 mt-3 flex items-start gap-2 rounded-xl bg-red-50 p-3 text-sm text-red-700 ring-1 ring-red-200">
+        <div className="mx-3 mt-2 flex items-start gap-2 rounded-xl bg-red-50 p-3 text-sm text-red-700 ring-1 ring-red-200">
           <p className="min-w-0 flex-1 break-words">{data.error}</p>
           <button type="button" onClick={data.dismissError} aria-label={t.error.dismiss}>
             <X size={18} />
@@ -60,7 +60,7 @@ export default function ShoppingApp() {
         </div>
       )}
 
-      <main className="px-4">{data.loading ? null : <ActiveView data={data} />}</main>
+      <main className="px-3">{data.loading ? null : <ActiveView data={data} />}</main>
 
       <TabBar tabs={tabs} active={tab} onChange={setTab} />
 

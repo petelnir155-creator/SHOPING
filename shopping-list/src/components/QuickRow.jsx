@@ -20,14 +20,14 @@ export default function QuickRow({
   const disabled = !handle
 
   return (
-    <div className="flex min-h-14 items-center gap-2 px-3">
+    <div className="flex min-h-11 items-center gap-2 px-3">
       <button
         type="button"
         onClick={handle}
         disabled={disabled}
-        className="flex min-w-0 flex-1 items-center gap-2 py-2 text-start disabled:text-stone-400"
+        className="flex min-w-0 flex-1 items-center gap-2 py-1 text-start disabled:text-stone-400"
       >
-        <span dir="auto" className={`truncate text-lg ${added ? 'text-stone-500' : ''}`}>
+        <span dir="auto" className={`truncate text-base ${added ? 'text-stone-500' : ''}`}>
           {name}
         </span>
         {quantity !== '1' && (
@@ -43,10 +43,10 @@ export default function QuickRow({
           onClick={onToggleFavorite}
           aria-pressed={isFavorite}
           aria-label={isFavorite ? t.item.unfavorite : t.item.favorite}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full active:bg-stone-100"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full active:bg-stone-100"
         >
           <Star
-            size={22}
+            size={18}
             className={isFavorite ? 'fill-amber-400 text-amber-400' : 'text-stone-300'}
           />
         </button>
@@ -57,11 +57,11 @@ export default function QuickRow({
         onClick={handle}
         disabled={disabled}
         aria-label={added ? (onRemove ? t.blueprint.remove : t.item.onList) : t.item.add}
-        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
           added ? 'bg-emerald-600 text-white' : 'bg-stone-100 text-stone-500 active:bg-emerald-100'
         }`}
       >
-        {added ? <Check size={22} strokeWidth={3} /> : <Plus size={22} />}
+        {added ? <Check size={18} strokeWidth={3} /> : <Plus size={18} />}
       </button>
     </div>
   )

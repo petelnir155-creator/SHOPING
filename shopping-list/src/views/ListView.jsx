@@ -9,7 +9,7 @@ import { nameKey } from '../lib/text'
 import { t } from '../lib/strings'
 
 export default function ListView({ data }) {
-  const { items, categories, favorites, history, activeKeys, favoriteKeys } = data
+  const { items, categories, blueprint, favorites, history, activeKeys, favoriteKeys } = data
 
   const pending = useMemo(() => items.filter((i) => !i.checked), [items])
   const done = useMemo(() => items.filter((i) => i.checked), [items])
@@ -28,9 +28,10 @@ export default function ListView({ data }) {
 
   return (
     <>
-      <div className="sticky top-14 z-10 -mx-4 px-4">
+      <div className="sticky top-12 z-10 -mx-3 px-3">
         <AddItemBar
           categories={categories}
+          blueprint={blueprint}
           favorites={favorites}
           history={history}
           activeKeys={activeKeys}
@@ -38,7 +39,7 @@ export default function ListView({ data }) {
         />
       </div>
 
-      <div className="mt-2 space-y-3">
+      <div className="mt-1 space-y-2">
         {groups.map(({ category, rows }) => (
           <CategoryGroup
             key={category?.id ?? 'none'}
