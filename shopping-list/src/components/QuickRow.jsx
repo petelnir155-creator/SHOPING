@@ -1,5 +1,6 @@
 import { Check, Plus, Star } from 'lucide-react'
 import { t } from '../lib/strings'
+import { formatQuantity } from '../lib/text'
 
 /**
  * A "tap to add" row, used by the Blueprint, Favorites and History views.
@@ -10,6 +11,7 @@ import { t } from '../lib/strings'
 export default function QuickRow({
   name,
   quantity,
+  unit,
   added,
   isFavorite,
   onAdd,
@@ -17,6 +19,7 @@ export default function QuickRow({
   onToggleFavorite,
 }) {
   const handle = added ? onRemove : onAdd
+  const qty = formatQuantity(quantity, unit)
   const disabled = !handle
 
   return (
@@ -30,9 +33,9 @@ export default function QuickRow({
         <span dir="auto" className={`truncate text-base ${added ? 'text-stone-500' : ''}`}>
           {name}
         </span>
-        {quantity !== '1' && (
+        {qty && (
           <span className="shrink-0 rounded-full bg-stone-100 px-2 py-0.5 text-sm text-stone-600">
-            {quantity}
+            {qty}
           </span>
         )}
       </button>
@@ -47,7 +50,7 @@ export default function QuickRow({
         >
           <Star
             size={18}
-            className={isFavorite ? 'fill-amber-400 text-amber-400' : 'text-stone-300'}
+            className={isFavorite ? 'fill-rose-600 text-rose-600' : 'text-stone-300'}
           />
         </button>
       )}

@@ -1,3 +1,14 @@
+import { t } from './strings'
+
+export const UNITS = ['unit', 'kg']
+
+/** "3" + 'unit' -> "3 יח׳"; null when it is just the default (1 unit) so rows stay compact. */
+export function formatQuantity(quantity, unit = 'unit') {
+  const q = String(quantity ?? '1').trim() || '1'
+  if (q === '1' && unit === 'unit') return null
+  return `${q} ${t.units[unit] ?? ''}`.trim()
+}
+
 /** Normalised key used to compare item names ("חלב " === "חלב"). */
 export const nameKey = (name = '') => name.trim().toLowerCase()
 

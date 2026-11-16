@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Home, ListPlus } from 'lucide-react'
+import { LayoutGrid, ListPlus } from 'lucide-react'
 import CategoryGroup from '../components/CategoryGroup'
 import QuickRow from '../components/QuickRow'
 import { groupByCategory } from '../lib/grouping'
@@ -12,7 +12,9 @@ import { t } from '../lib/strings'
  */
 export default function BlueprintView({ data }) {
   const { blueprint, categories, items, activeKeys, favoriteKeys } = data
-  const groups = useMemo(() => groupByCategory(categories, blueprint), [categories, blueprint])
+  const groups = useMemo(() => groupByCategory(categories, blueprint, { keepEmpty: true }),
+    [categories, blueprint],
+  )
   const onListCount = blueprint.filter((b) => activeKeys.has(nameKey(b.name))).length
 
   const removeFromList = (b) => {
@@ -23,7 +25,7 @@ export default function BlueprintView({ data }) {
   if (!blueprint.length) {
     return (
       <div className="py-20 text-center text-stone-500">
-        <Home className="mx-auto mb-3 text-stone-300" size={56} />
+        <LayoutGrid className="mx-auto mb-3 text-stone-300" size={56} />
         <p className="text-lg font-semibold">{t.blueprint.empty}</p>
         <p className="text-sm">{t.blueprint.emptyHint}</p>
       </div>
@@ -51,6 +53,7 @@ export default function BlueprintView({ data }) {
                 key={b.id}
                 name={b.name}
                 quantity={b.quantity}
+                unit={b.unit}
                 added={activeKeys.has(nameKey(b.name))}
                 isFavorite={favoriteKeys.has(nameKey(b.name))}
                 onAdd={() => data.addItem(b)}
@@ -58,6 +61,9 @@ export default function BlueprintView({ data }) {
                 onToggleFavorite={() => data.toggleFavorite(b)}
               />
             ))}
+            {rows.length === 0 && (
+              <p className="px-3 py-2 text-xs text-stone-400">{t.blueprint.emptyCategory}</p>
+            )}
             {missing.length > 0 && (
               <div className="p-2">
                 <button

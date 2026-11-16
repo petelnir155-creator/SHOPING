@@ -5,11 +5,13 @@ React + Tailwind + Supabase Realtime. Hebrew / RTL, mobile-first, built for two 
 ## Setup (≈10 minutes)
 
 1. **Create a Supabase project** at https://supabase.com (free tier is plenty).
-2. **Create the tables:** Dashboard → *SQL Editor* → run these two files, in order:
+2. **Create the tables:** Dashboard → *SQL Editor* → run these files, in order:
    - `supabase/001_schema.sql` – `categories`, `shopping_items`, `favorites`, `shopping_history`, realtime, RLS.
    - `supabase/002_blueprint.sql` – the **Household Blueprint**: the 9 home categories and 57 base items
      (`blueprint_items` table). Safe to re-run. *Already ran the old `schema.sql`? Run only `002_blueprint.sql`* –
      it also removes the unused starter categories.
+   - `supabase/003_quantity_note.sql` – quantity units (יח׳ / ק״ג), item notes, and the category rename
+     "שתייה וסודה סטרים". **Required for the current app version.**
 3. **Environment variables:** copy `.env.example` to `.env.local` and fill in
    (Dashboard → *Project Settings → API*):
    ```
@@ -30,7 +32,7 @@ React + Tailwind + Supabase Realtime. Hebrew / RTL, mobile-first, built for two 
 | Screen | What it does |
 | --- | --- |
 | **רשימה** | Add bar (type + Enter, `חלב x2` sets quantity), quick-add chips from favorites/past purchases, items grouped by category. Tap the circle to check off (moves to "הושלמו"; tap again to undo). Tap the text to edit name / quantity / category / delete, or swipe a row right for quick Edit / Delete. Star = favorite. **סיום קנייה** saves checked items to history and clears them. |
-| **בסיס הבית** | The fixed household list by category. Tap a row → V (added to the list); tap the V again to remove it. "סמנו את כל הקטגוריה" adds a whole category. Star items here to make them favorites. |
+| **קטגוריות** (the household base list) | The fixed household list by category. Tap a row → V (added to the list); tap the V again to remove it. "סמנו את כל הקטגוריה" adds a whole category. Star items here to make them favorites. |
 | **מועדפים** | Your starred items by category. Tap a row to re-add it to the list. |
 | **היסטוריה** | Past trips by date. Re-add a single item, or "הוספת הכל" for the whole trip. |
 | ⚙︎ (header) | Add / rename / delete categories. Deleting a category moves its items to "אחר". |
@@ -42,6 +44,7 @@ Adding an item that is already on the list does nothing; if it is on the list bu
 ```
 supabase/001_schema.sql    tables, RLS, realtime
 supabase/002_blueprint.sql categories + Household Blueprint seed data
+supabase/003_quantity_note.sql units + notes columns, category rename
 src/lib/                   supabase client, strings (all Hebrew copy), grouping + text helpers
 src/hooks/
   useRealtimeTable.js      generic load + realtime-sync for ONE table

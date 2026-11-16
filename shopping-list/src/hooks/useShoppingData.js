@@ -108,6 +108,8 @@ export function useShoppingData() {
           id: uuid(),
           name: entry.name.trim(),
           quantity: entry.quantity || '1',
+          unit: entry.unit || 'unit',
+          note: entry.note || null,
           category_id: entry.category_id || null,
           checked: false,
         }
@@ -165,6 +167,7 @@ export function useShoppingData() {
       session_id: sessionId,
       name: i.name,
       quantity: i.quantity,
+      unit: i.unit,
       category_id: i.category_id,
       category_name: categoryName(i.category_id),
       purchased_at: purchasedAt,
@@ -190,7 +193,7 @@ export function useShoppingData() {
   // ---------- favorites ----------
   /** Star / un-star anything that has a name (list item, history row...). */
   const toggleFavorite = useCallback(
-    ({ name, category_id = null, quantity = '1' }) => {
+    ({ name, category_id = null, quantity = '1', unit = 'unit' }) => {
       const existing = favorites.find((f) => nameKey(f.name) === nameKey(name))
       if (existing) {
         setFavorites((list) => list.filter((f) => f.id !== existing.id))
@@ -201,6 +204,7 @@ export function useShoppingData() {
           name: name.trim(),
           category_id,
           quantity: quantity || '1',
+          unit: unit || 'unit',
         }
         setFavorites((list) => [...list, { ...row, created_at: new Date().toISOString() }])
         run(supabase.from('favorites').insert(row))

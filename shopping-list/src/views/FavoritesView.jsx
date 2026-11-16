@@ -33,6 +33,7 @@ export default function FavoritesView({ data }) {
               key={fav.id}
               name={fav.name}
               quantity={fav.quantity}
+              unit={fav.unit}
               added={activeKeys.has(nameKey(fav.name))}
               isFavorite
               onAdd={() => data.addItem(fav)}

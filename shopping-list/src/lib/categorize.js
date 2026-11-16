@@ -63,9 +63,10 @@ const RULES = [
     ],
   },
   {
-    category: 'שתייה וסודסטרים',
+    category: 'שתייה וסודה סטרים',
+    aliases: ['שתייה וסודסטרים'], // old name, until 003_quantity_note.sql is run
     keywords: [
-      'בלוני גז', 'בלון גז', 'גז', 'סודסטרים', 'סודה', 'סירופ', 'סירופים', 'טעמים', 'מים', 'מים מינרליים',
+      'בלוני גז', 'בלון גז', 'גז', 'סודסטרים', 'סודה סטרים', 'סודהסטרים', 'סודה', 'סירופ', 'סירופים', 'טעמים', 'מים', 'מים מינרליים',
       'מינרליים', 'בירה', 'בירות', 'יין', 'יינות', 'וויסקי', 'וודקה', 'ערק', 'מיץ', 'משקה', 'קולה',
       'פפסי', 'ספרייט', 'שתייה', 'שתיה', 'אלכוהול', 'פחיות', 'נביעות',
     ],
@@ -148,6 +149,11 @@ export function detectCategory({ text, categories, blueprint = [], favorites = [
 
   const validIds = new Set(categories.map((c) => c.id))
   const idByName = new Map(categories.map((c) => [c.name, c.id]))
+  for (const r of RULES) {
+    for (const alias of r.aliases ?? []) {
+      if (!idByName.has(r.category) && idByName.has(alias)) idByName.set(r.category, idByName.get(alias))
+    }
+  }
   const usable = (r) => r.category_id && validIds.has(r.category_id)
   const exact = (list) => list.find((r) => usable(r) && norm(r.name) === q)
 

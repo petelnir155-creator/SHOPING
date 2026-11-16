@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Check, Star, Trash2, X, Save } from 'lucide-react'
 import SwipeRow from './SwipeRow'
+import { UNITS, formatQuantity } from '../lib/text'
 import { t } from '../lib/strings'
 
 /**
@@ -21,10 +22,17 @@ export default function ItemRow({
   onToggleFavorite,
 }) {
   const [draft, setDraft] = useState(null) // null = not editing
+  const qty = formatQuantity(item.quantity, item.unit)
   const set = (field) => (e) => setDraft((d) => ({ ...d, [field]: e.target.value }))
 
   const startEdit = () =>
-    setDraft({ name: item.name, quantity: item.quantity, category_id: item.category_id ?? '' })
+    setDraft({
+      name: item.name,
+      quantity: item.quantity,
+      unit: item.unit ?? 'unit',
+      note: item.note ?? '',
+      category_id: item.category_id ?? '',
+    })
 
   const save = (e) => {
     e.preventDefault()
@@ -33,6 +41,8 @@ export default function ItemRow({
     onUpdate(item.id, {
       name,
       quantity: draft.quantity.trim() || '1',
+      unit: draft.unit,
+      note: draft.note.trim() || null,
       category_id: draft.category_id || null,
     })
     setDraft(null)
@@ -45,23 +55,52 @@ export default function ItemRow({
         onKeyDown={(e) => e.key === 'Escape' && setDraft(null)}
         className="space-y-2 bg-rose-50/60 p-2"
       >
+        <input
+          autoFocus
+          dir="rtl"
+          value={draft.name}
+          onChange={set('name')}
+          aria-label={t.item.name}
+          className="h-10 w-full rounded-lg border border-stone-300 bg-white px-3 text-start"
+        />
         <div className="flex gap-2">
           <input
-            autoFocus
             dir="rtl"
-            value={draft.name}
-            onChange={set('name')}
-            aria-label={t.item.name}
-            className="h-10 min-w-0 flex-1 rounded-lg border border-stone-300 bg-white px-3 text-start"
-          />
-          <input
-            dir="rtl"
+            inputMode="decimal"
             value={draft.quantity}
             onChange={set('quantity')}
+            placeholder={t.item.quantityPlaceholder}
             aria-label={t.item.quantity}
-            className="h-10 w-16 rounded-lg border border-stone-300 bg-white px-2 text-center"
+            className="h-10 w-24 rounded-lg border border-stone-300 bg-white px-2 text-center"
           />
+          <div
+            role="group"
+            aria-label={t.item.quantity}
+            className="flex flex-1 overflow-hidden rounded-lg border border-stone-300 bg-white"
+          >
+            {UNITS.map((u) => (
+              <button
+                key={u}
+                type="button"
+                onClick={() => setDraft((d) => ({ ...d, unit: u }))}
+                aria-pressed={draft.unit === u}
+                className={`flex-1 text-sm font-medium ${
+                  draft.unit === u ? 'bg-rose-600 text-white' : 'text-stone-600 active:bg-stone-100'
+                }`}
+              >
+                {t.units[u]}
+              </button>
+            ))}
+          </div>
         </div>
+        <input
+          dir="rtl"
+          value={draft.note}
+          onChange={set('note')}
+          placeholder={t.item.notePlaceholder}
+          aria-label={t.item.note}
+          className="h-10 w-full rounded-lg border border-stone-300 bg-white px-3 text-start"
+        />
         <select
           value={draft.category_id}
           onChange={set('category_id')}
@@ -134,12 +173,17 @@ export default function ItemRow({
             >
               {item.name}
             </span>
-            {item.quantity !== '1' && (
+            {qty && (
               <span className="shrink-0 rounded-full bg-stone-100 px-1.5 text-xs font-medium text-stone-600">
-                {item.quantity}
+                {qty}
               </span>
             )}
           </span>
+          {item.note && (
+            <span dir="auto" className="max-w-full truncate text-xs leading-tight text-stone-500">
+              {item.note}
+            </span>
+          )}
           {categoryLabel && (
             <span className="text-[11px] leading-tight text-stone-400">{categoryLabel}</span>
           )}
@@ -154,7 +198,7 @@ export default function ItemRow({
         >
           <Star
             size={18}
-            className={isFavorite ? 'fill-amber-400 text-amber-400' : 'text-stone-300'}
+            className={isFavorite ? 'fill-rose-600 text-rose-600' : 'text-stone-300'}
           />
         </button>
       </div>

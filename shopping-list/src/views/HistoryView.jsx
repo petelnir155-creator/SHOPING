@@ -13,6 +13,7 @@ export default function HistoryView({ data }) {
   const toEntry = (row) => ({
     name: row.name,
     quantity: row.quantity,
+    unit: row.unit,
     category_id:
       categories.find((c) => c.id === row.category_id)?.id ??
       categories.find((c) => c.name === row.category_name)?.id ??
@@ -70,6 +71,7 @@ export default function HistoryView({ data }) {
                   key={row.id}
                   name={row.name}
                   quantity={row.quantity}
+                  unit={row.unit}
                   added={activeKeys.has(nameKey(row.name))}
                   isFavorite={favoriteKeys.has(nameKey(row.name))}
                   onAdd={() => data.addItem(entry)}

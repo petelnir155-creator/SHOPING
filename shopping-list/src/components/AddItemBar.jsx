@@ -48,7 +48,7 @@ export default function AddItemBar({
   }
 
   const addSuggestion = (s) => {
-    onAdd({ name: s.name, quantity: s.quantity, category_id: s.category_id })
+    onAdd({ name: s.name, quantity: s.quantity, unit: s.unit, category_id: s.category_id })
     setText('')
     setOverride(null)
   }
@@ -100,7 +100,7 @@ export default function AddItemBar({
               onClick={() => addSuggestion(s)}
               className="flex h-8 shrink-0 items-center gap-1 rounded-full bg-white px-3 text-sm shadow-sm ring-1 ring-stone-200 active:bg-rose-50"
             >
-              {s.isFavorite && <Star size={12} className="fill-amber-400 text-amber-400" />}
+              {s.isFavorite && <Star size={12} className="fill-rose-600 text-rose-600" />}
               <span dir="auto">{s.name}</span>
             </button>
           ))}

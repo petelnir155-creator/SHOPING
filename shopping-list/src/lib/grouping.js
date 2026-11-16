@@ -5,7 +5,7 @@ import { nameKey } from './text'
  * Rows with no (or an unknown) category land in a trailing `category: null` group.
  * Empty groups are dropped.
  */
-export function groupByCategory(categories, rows) {
+export function groupByCategory(categories, rows, { keepEmpty = false } = {}) {
   const known = new Set(categories.map((c) => c.id))
   const groups = categories.map((category) => ({
     category,
@@ -13,7 +13,7 @@ export function groupByCategory(categories, rows) {
   }))
   const orphans = rows.filter((r) => !r.category_id || !known.has(r.category_id))
   if (orphans.length) groups.push({ category: null, rows: orphans })
-  return groups.filter((g) => g.rows.length)
+  return groups.filter((g) => g.rows.length || (keepEmpty && g.category))
 }
 
 /** Groups history rows into trips (by session_id), newest trip first. */
@@ -46,6 +46,7 @@ export function buildSuggestions({ favorites, history, activeKeys, query, limit 
     out.push({
       name: src.name,
       quantity: src.quantity,
+      unit: src.unit,
       category_id: src.category_id,
       isFavorite,
     })

@@ -5,9 +5,10 @@
 export const t = {
   appName: 'מה חסר בבית?',
   uncategorized: 'אחר',
+  units: { unit: 'יח׳', kg: 'ק״ג' },
 
-  tabs: { list: 'רשימה', blueprint: 'בסיס הבית', favorites: 'מועדפים', history: 'היסטוריה' },
-  status: { connected: 'מחובר', connecting: 'מתחבר…', offline: 'לא מחובר' },
+  tabs: { list: 'רשימה', blueprint: 'קטגוריות', favorites: 'מועדפים', history: 'היסטוריה' },
+  status: { connected: 'מחובר', connecting: 'מתחבר…' },
 
   add: {
     placeholder: 'מה צריך לקנות? (למשל: חלב x2)',
@@ -33,6 +34,9 @@ export const t = {
     cancel: 'ביטול',
     delete: 'מחיקה',
     edit: 'עריכה',
+    note: 'הערה',
+    notePlaceholder: 'הערה (למשל: נשאר חצי בקבוק)',
+    quantityPlaceholder: 'כמות',
     favorite: 'הוספה למועדפים',
     unfavorite: 'הסרה ממועדפים',
     add: 'הוספה לרשימה',
@@ -46,6 +50,7 @@ export const t = {
     hint: 'לחצו על פריט כדי לסמן אותו לקנייה (V). לחיצה נוספת מסירה אותו מהרשימה.',
     addMissing: 'סמנו את כל הקטגוריה',
     remove: 'הסרה מהרשימה',
+    emptyCategory: 'אין עדיין פריטים בקטגוריה הזו',
   },
 
   favorites: {
