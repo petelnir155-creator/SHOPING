@@ -63,7 +63,7 @@ export default function BlueprintView({ data }) {
                 <button
                   type="button"
                   onClick={() => data.addItems(missing)}
-                  className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-emerald-50 font-semibold text-emerald-700 active:bg-emerald-100"
+                  className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-rose-50 font-semibold text-rose-700 active:bg-rose-100"
                 >
                   <ListPlus size={18} /> {t.blueprint.addMissing}
                 </button>

@@ -3,7 +3,7 @@
  * so translating or tweaking wording is a one-file change.
  */
 export const t = {
-  appName: 'רשימת קניות',
+  appName: 'מה חסר בבית?',
   uncategorized: 'אחר',
 
   tabs: { list: 'רשימה', blueprint: 'בסיס הבית', favorites: 'מועדפים', history: 'היסטוריה' },

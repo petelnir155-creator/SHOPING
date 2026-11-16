@@ -43,7 +43,7 @@ export default function ItemRow({
       <form
         onSubmit={save}
         onKeyDown={(e) => e.key === 'Escape' && setDraft(null)}
-        className="space-y-2 bg-emerald-50/60 p-2"
+        className="space-y-2 bg-rose-50/60 p-2"
       >
         <div className="flex gap-2">
           <input
@@ -78,7 +78,7 @@ export default function ItemRow({
         <div className="flex gap-2">
           <button
             type="submit"
-            className="flex h-10 flex-1 items-center justify-center gap-2 rounded-lg bg-emerald-600 font-semibold text-white active:bg-emerald-700"
+            className="flex h-10 flex-1 items-center justify-center gap-2 rounded-lg bg-rose-600 font-semibold text-white active:bg-rose-700"
           >
             <Save size={16} /> {t.item.save}
           </button>
@@ -113,7 +113,7 @@ export default function ItemRow({
           aria-label={item.name}
           className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
             item.checked
-              ? 'border-emerald-600 bg-emerald-600 text-white'
+              ? 'border-rose-600 bg-rose-600 text-white'
               : 'border-stone-300 bg-white active:bg-stone-100'
           }`}
         >

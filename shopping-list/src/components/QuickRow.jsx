@@ -58,7 +58,7 @@ export default function QuickRow({
         disabled={disabled}
         aria-label={added ? (onRemove ? t.blueprint.remove : t.item.onList) : t.item.add}
         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${
-          added ? 'bg-emerald-600 text-white' : 'bg-stone-100 text-stone-500 active:bg-emerald-100'
+          added ? 'bg-rose-600 text-white' : 'bg-stone-100 text-stone-500 active:bg-rose-100'
         }`}
       >
         {added ? <Check size={18} strokeWidth={3} /> : <Plus size={18} />}

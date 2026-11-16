@@ -48,7 +48,7 @@ export default function HistoryView({ data }) {
             <button
               type="button"
               onClick={() => data.addItems(trip.rows.map(toEntry))}
-              className="flex h-10 items-center gap-1 rounded-full bg-emerald-600 px-3 text-sm font-semibold text-white active:bg-emerald-700"
+              className="flex h-10 items-center gap-1 rounded-full bg-rose-600 px-3 text-sm font-semibold text-white active:bg-rose-700"
             >
               <ListPlus size={18} /> {t.history.addAll}
             </button>

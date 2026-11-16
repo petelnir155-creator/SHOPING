@@ -2,9 +2,9 @@ import { Wifi, WifiOff, Loader2 } from 'lucide-react'
 import { t } from '../lib/strings'
 
 const STYLES = {
-  connected: { icon: Wifi, cls: 'bg-emerald-500/20 text-emerald-50' },
+  connected: { icon: Wifi, cls: 'bg-white/20 text-white' },
   connecting: { icon: Loader2, cls: 'bg-white/20 text-white animate-pulse' },
-  offline: { icon: WifiOff, cls: 'bg-red-500/80 text-white' },
+  offline: { icon: WifiOff, cls: 'bg-amber-300 text-stone-900' },
 }
 
 export default function ConnectionBadge({ status }) {

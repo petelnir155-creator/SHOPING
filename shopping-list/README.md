@@ -1,4 +1,4 @@
-# רשימת קניות – shared shopping list
+# מה חסר בבית? – shared shopping list
 
 React + Tailwind + Supabase Realtime. Hebrew / RTL, mobile-first, built for two phones.
 

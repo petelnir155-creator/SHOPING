@@ -12,13 +12,13 @@ export default function TabBar({ tabs, active, onChange }) {
               onClick={() => onChange(id)}
               aria-current={isActive ? 'page' : undefined}
               className={`relative flex h-14 flex-1 flex-col items-center justify-center gap-0.5 text-xs font-medium ${
-                isActive ? 'text-emerald-700' : 'text-stone-500'
+                isActive ? 'text-rose-700' : 'text-stone-500'
               }`}
             >
               <Icon size={22} />
               {label}
               {badge > 0 && (
-                <span className="absolute top-2 ms-6 min-w-5 rounded-full bg-emerald-600 px-1.5 text-center text-[11px] font-bold leading-5 text-white">
+                <span className="absolute top-2 ms-6 min-w-5 rounded-full bg-rose-600 px-1.5 text-center text-[11px] font-bold leading-5 text-white">
                   {badge}
                 </span>
               )}

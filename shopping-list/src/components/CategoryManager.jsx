@@ -83,7 +83,7 @@ export default function CategoryManager({ categories, onAdd, onRename, onDelete,
           <button
             type="submit"
             aria-label={t.categories.add}
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white active:bg-emerald-700"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-rose-600 text-white active:bg-rose-700"
           >
             <Plus size={24} />
           </button>

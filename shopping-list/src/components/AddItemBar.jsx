@@ -69,7 +69,7 @@ export default function AddItemBar({
         <button
           type="submit"
           aria-label={t.add.submit}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm active:bg-emerald-700"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-600 text-white shadow-sm active:bg-rose-700"
         >
           <Plus size={24} />
         </button>
@@ -98,7 +98,7 @@ export default function AddItemBar({
               key={s.name}
               type="button"
               onClick={() => addSuggestion(s)}
-              className="flex h-8 shrink-0 items-center gap-1 rounded-full bg-white px-3 text-sm shadow-sm ring-1 ring-stone-200 active:bg-emerald-50"
+              className="flex h-8 shrink-0 items-center gap-1 rounded-full bg-white px-3 text-sm shadow-sm ring-1 ring-stone-200 active:bg-rose-50"
             >
               {s.isFavorite && <Star size={12} className="fill-amber-400 text-amber-400" />}
               <span dir="auto">{s.name}</span>

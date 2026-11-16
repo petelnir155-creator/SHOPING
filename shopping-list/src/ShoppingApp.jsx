@@ -31,11 +31,11 @@ export default function ShoppingApp() {
 
   return (
     <div className="mx-auto min-h-screen max-w-xl pb-20">
-      <header className="sticky top-0 z-20 bg-emerald-600 pt-[env(safe-area-inset-top)] text-white shadow">
+      <header className="sticky top-0 z-20 bg-rose-600 pt-[env(safe-area-inset-top)] text-white shadow">
         <div className="flex h-12 items-center gap-2 px-3">
           <h1 className="flex-1 text-lg font-bold">{t.appName}</h1>
           {data.items.length > 0 && (
-            <span className="text-sm text-emerald-50">
+            <span className="text-sm text-rose-50">
               {doneCount}/{data.items.length}
             </span>
           )}
