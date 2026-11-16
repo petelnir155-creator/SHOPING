@@ -11,7 +11,7 @@ export const t = {
   status: { connected: 'מחובר', connecting: 'מתחבר…' },
 
   add: {
-    placeholder: 'מה צריך לקנות? (למשל: חלב x2)',
+    placeholder: 'מה קונים?',
     submit: 'הוספה',
     category: 'קטגוריה',
     auto: 'קטגוריה: אוטומטי',
@@ -53,6 +53,9 @@ export const t = {
     emptyCategory: 'אין עדיין פריטים בקטגוריה הזו',
     addPlaceholder: (category) => `הוספת פריט ל${category}`,
     addToCategory: 'הוספה',
+    back: 'חזרה לקטגוריות',
+    itemCount: (n) => `${n} פריטים`,
+    view: { grid: 'תצוגת אייקונים', list: 'תצוגת רשימה' },
     duplicate: (name) => `"${name}" כבר קיים ברשימת הקטגוריות`,
   },
 

@@ -32,7 +32,8 @@ React + Tailwind + Supabase Realtime. Hebrew / RTL, mobile-first, built for two 
 | Screen | What it does |
 | --- | --- |
 | **רשימה** | Add bar (type + Enter, `חלב x2` sets quantity), quick-add chips from favorites/past purchases, items grouped by category. Tap the circle to check off (moves to "הושלמו"; tap again to undo). Tap the text to edit name / quantity / category / delete, or swipe a row right for quick Edit / Delete. Star = favorite. **סיום קנייה** saves checked items to history and clears them. |
-| **קטגוריות** (the household base list) | The fixed household list by category. Tap a row → V (added to the list); tap the V again to remove it. "סמנו את כל הקטגוריה" adds a whole category. Star items here to make them favorites. |
+| **קטגוריות** (the household base list) | Two looks, switch with the toggle: **icon tiles** (tap a tile to open its items) or a **list**. Icons come from the category name (`src/lib/categoryIcons.js`). |
+| _(same tab, details)_ | The fixed household list by category. Tap a row → V (added to the list); tap the V again to remove it. "סמנו את כל הקטגוריה" adds a whole category. Star items here to make them favorites. |
 | **מועדפים** | Your starred items by category. Tap a row to re-add it to the list. |
 | **היסטוריה** | Past trips by date. Re-add a single item, or "הוספת הכל" for the whole trip. |
 | ⚙︎ (header) | Add / rename / delete categories. Deleting a category moves its items to "אחר". |
