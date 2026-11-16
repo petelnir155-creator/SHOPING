@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { uuid } from '../lib/id'
 import { nameKey } from '../lib/text'
+import { t } from '../lib/strings'
 import { useRealtimeTable } from './useRealtimeTable'
 
 /**
@@ -31,6 +32,7 @@ export function useShoppingData() {
   const favorites = favoritesT.rows
   const history = historyT.rows
   const blueprint = blueprintT.rows
+  const { setRows: setBlueprint } = blueprintT
   const { setRows: setCategories } = categoriesT
   const { setRows: setItems } = itemsT
   const { setRows: setFavorites } = favoritesT
@@ -213,6 +215,34 @@ export function useShoppingData() {
     [favorites, run, setFavorites],
   )
 
+  // ---------- blueprint (the fixed base list per category) ----------
+  const addBlueprintItem = useCallback(
+    ({ name, category_id = null, quantity = '1' }) => {
+      const clean = name.trim()
+      if (!clean) return
+      if (blueprint.some((b) => nameKey(b.name) === nameKey(clean))) {
+        setActionError(t.blueprint.duplicate(clean))
+        return
+      }
+      const position =
+        blueprint
+          .filter((b) => b.category_id === category_id)
+          .reduce((max, b) => Math.max(max, b.position), 0) + 1
+      const row = { id: uuid(), name: clean, category_id, quantity: quantity || '1', unit: 'unit', position }
+      setBlueprint((list) => [...list, { ...row, created_at: new Date().toISOString() }])
+      run(supabase.from('blueprint_items').insert(row))
+    },
+    [blueprint, run, setBlueprint],
+  )
+
+  const deleteBlueprintItem = useCallback(
+    (id) => {
+      setBlueprint((list) => list.filter((b) => b.id !== id))
+      run(supabase.from('blueprint_items').delete().eq('id', id))
+    },
+    [run, setBlueprint],
+  )
+
   // ---------- categories ----------
   const addCategory = useCallback(
     (name) => {
@@ -274,5 +304,7 @@ export function useShoppingData() {
     addCategory,
     renameCategory,
     deleteCategory,
+    addBlueprintItem,
+    deleteBlueprintItem,
   }
 }

@@ -1,18 +1,23 @@
 import { useMemo } from 'react'
 import { LayoutGrid, ListPlus } from 'lucide-react'
+import AddBlueprintItem from '../components/AddBlueprintItem'
 import CategoryGroup from '../components/CategoryGroup'
 import QuickRow from '../components/QuickRow'
+import SwipeRow from '../components/SwipeRow'
 import { groupByCategory } from '../lib/grouping'
 import { nameKey } from '../lib/text'
 import { t } from '../lib/strings'
 
 /**
- * The household base list. Tap a row = mark it (V) for this shopping trip, i.e. add it
- * to the active list. Tap the V again = take it off (only while it is still unchecked).
+ * Categories + the household base list.
+ *  - tap a row            -> V: add it to the shopping list (tap the V again to remove it)
+ *  - swipe a row right    -> delete it from the base list
+ *  - input at the bottom  -> add a new item to that category's base list
  */
 export default function BlueprintView({ data }) {
   const { blueprint, categories, items, activeKeys, favoriteKeys } = data
-  const groups = useMemo(() => groupByCategory(categories, blueprint, { keepEmpty: true }),
+  const groups = useMemo(
+    () => groupByCategory(categories, blueprint, { keepEmpty: true }),
     [categories, blueprint],
   )
   const onListCount = blueprint.filter((b) => activeKeys.has(nameKey(b.name))).length
@@ -22,7 +27,7 @@ export default function BlueprintView({ data }) {
     if (match) data.deleteItem(match.id)
   }
 
-  if (!blueprint.length) {
+  if (!groups.length) {
     return (
       <div className="py-20 text-center text-stone-500">
         <LayoutGrid className="mx-auto mb-3 text-stone-300" size={56} />
@@ -35,7 +40,9 @@ export default function BlueprintView({ data }) {
   return (
     <div className="space-y-2 pt-2">
       <div className="px-1 text-sm text-stone-600">
-        <p className="font-semibold">{t.blueprint.summary(onListCount, blueprint.length)}</p>
+        {blueprint.length > 0 && (
+          <p className="font-semibold">{t.blueprint.summary(onListCount, blueprint.length)}</p>
+        )}
         <p>{t.blueprint.hint}</p>
       </div>
 
@@ -46,20 +53,21 @@ export default function BlueprintView({ data }) {
             key={category?.id ?? 'none'}
             title={category?.name ?? t.uncategorized}
             count={`${rows.length - missing.length}/${rows.length}`}
-            defaultOpen={false}
+            defaultOpen={rows.length === 0}
           >
             {rows.map((b) => (
-              <QuickRow
-                key={b.id}
-                name={b.name}
-                quantity={b.quantity}
-                unit={b.unit}
-                added={activeKeys.has(nameKey(b.name))}
-                isFavorite={favoriteKeys.has(nameKey(b.name))}
-                onAdd={() => data.addItem(b)}
-                onRemove={() => removeFromList(b)}
-                onToggleFavorite={() => data.toggleFavorite(b)}
-              />
+              <SwipeRow key={b.id} onDelete={() => data.deleteBlueprintItem(b.id)}>
+                <QuickRow
+                  name={b.name}
+                  quantity={b.quantity}
+                  unit={b.unit}
+                  added={activeKeys.has(nameKey(b.name))}
+                  isFavorite={favoriteKeys.has(nameKey(b.name))}
+                  onAdd={() => data.addItem(b)}
+                  onRemove={() => removeFromList(b)}
+                  onToggleFavorite={() => data.toggleFavorite(b)}
+                />
+              </SwipeRow>
             ))}
             {rows.length === 0 && (
               <p className="px-3 py-2 text-xs text-stone-400">{t.blueprint.emptyCategory}</p>
@@ -74,6 +82,14 @@ export default function BlueprintView({ data }) {
                   <ListPlus size={18} /> {t.blueprint.addMissing}
                 </button>
               </div>
+            )}
+            {category && (
+              <AddBlueprintItem
+                categoryName={category.name}
+                onAdd={({ name, quantity }) =>
+                  data.addBlueprintItem({ name, quantity, category_id: category.id })
+                }
+              />
             )}
           </CategoryGroup>
         )

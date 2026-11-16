@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Pencil, Trash2 } from 'lucide-react'
 import { t } from '../lib/strings'
 
-const ACTIONS_WIDTH = 128 // two 64px buttons
+const BUTTON_WIDTH = 64
 const LOCK_PX = 8 // movement before we decide horizontal swipe vs. vertical scroll
 
 /**
@@ -14,8 +14,9 @@ export default function SwipeRow({ onEdit, onDelete, children }) {
   const [dragging, setDragging] = useState(false)
   const gesture = useRef(null)
   const justDragged = useRef(false)
+  const width = BUTTON_WIDTH * (onEdit ? 2 : 1) // Edit is optional
 
-  const clamp = (v) => Math.min(ACTIONS_WIDTH, Math.max(0, v))
+  const clamp = (v) => Math.min(width, Math.max(0, v))
   const close = () => setOffset(0)
 
   const onPointerDown = (e) => {
@@ -46,7 +47,7 @@ export default function SwipeRow({ onEdit, onDelete, children }) {
     justDragged.current = true // swallow the click that follows a drag
     setTimeout(() => (justDragged.current = false), 60)
     setDragging(false)
-    setOffset((o) => (o > ACTIONS_WIDTH / 2 ? ACTIONS_WIDTH : 0))
+    setOffset((o) => (o > width / 2 ? width : 0))
   }
 
   const onClickCapture = (e) => {
@@ -74,7 +75,8 @@ export default function SwipeRow({ onEdit, onDelete, children }) {
       onPointerUp={endGesture}
       onPointerCancel={endGesture}
     >
-      <div className="absolute inset-y-0 left-0 flex" style={{ width: ACTIONS_WIDTH }}>
+      <div className="absolute inset-y-0 left-0 flex" style={{ width: width }}>
+        {onEdit && (
         <button
           type="button"
           tabIndex={isOpen ? 0 : -1}
@@ -85,6 +87,7 @@ export default function SwipeRow({ onEdit, onDelete, children }) {
           <Pencil size={18} />
           {t.item.edit}
         </button>
+        )}
         <button
           type="button"
           tabIndex={isOpen ? 0 : -1}

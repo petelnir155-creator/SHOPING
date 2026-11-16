@@ -45,12 +45,15 @@ export const t = {
 
   blueprint: {
     empty: 'רשימת הבסיס ריקה',
-    emptyHint: 'הריצו את supabase/002_blueprint.sql ב-Supabase',
+    emptyHint: 'הוסיפו קטגוריה דרך כפתור ההגדרות בראש המסך',
     summary: (on, total) => `${on} מתוך ${total} סומנו לקנייה`,
-    hint: 'לחצו על פריט כדי לסמן אותו לקנייה (V). לחיצה נוספת מסירה אותו מהרשימה.',
+    hint: 'לחצו על פריט כדי לסמן אותו לקנייה (V). החליקו ימינה כדי למחוק אותו מהרשימה הקבועה.',
     addMissing: 'סמנו את כל הקטגוריה',
     remove: 'הסרה מהרשימה',
     emptyCategory: 'אין עדיין פריטים בקטגוריה הזו',
+    addPlaceholder: (category) => `הוספת פריט ל${category}`,
+    addToCategory: 'הוספה',
+    duplicate: (name) => `"${name}" כבר קיים ברשימת הקטגוריות`,
   },
 
   favorites: {
