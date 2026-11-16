@@ -1,38 +1,67 @@
+import { useState } from 'react'
 import { ListPlus } from 'lucide-react'
 import AddBlueprintItem from './AddBlueprintItem'
+import ItemEditForm from './ItemEditForm'
 import QuickRow from './QuickRow'
 import SwipeRow from './SwipeRow'
 import { nameKey } from '../lib/text'
 import { t } from '../lib/strings'
+
+/** One base-list item: tap = V, pencil / swipe-right = edit, swipe-right = delete. */
+function BlueprintRow({ b, data, onList }) {
+  const [editing, setEditing] = useState(false)
+  const { items, favoriteKeys, categories } = data
+
+  const removeFromList = () => {
+    const match = items.find((i) => !i.checked && nameKey(i.name) === nameKey(b.name))
+    if (match) data.deleteItem(match.id)
+  }
+
+  if (editing) {
+    return (
+      <ItemEditForm
+        initial={b}
+        categories={categories}
+        onSave={(patch) => {
+          data.updateBlueprintItem(b.id, patch)
+          setEditing(false)
+        }}
+        onCancel={() => setEditing(false)}
+        onDelete={() => data.deleteBlueprintItem(b.id)}
+      />
+    )
+  }
+
+  return (
+    <SwipeRow onEdit={() => setEditing(true)} onDelete={() => data.deleteBlueprintItem(b.id)}>
+      <QuickRow
+        name={b.name}
+        quantity={b.quantity}
+        unit={b.unit}
+        note={b.note}
+        added={onList}
+        isFavorite={favoriteKeys.has(nameKey(b.name))}
+        onAdd={() => data.addItem(b)}
+        onRemove={removeFromList}
+        onToggleFavorite={() => data.toggleFavorite(b)}
+        onEdit={() => setEditing(true)}
+      />
+    </SwipeRow>
+  )
+}
 
 /**
  * Everything inside one category of the base list: its items (tap = V, swipe = delete),
  * "mark all", and the add-item input. Shared by the list view and the icon view's detail page.
  */
 export default function BlueprintCategoryBody({ category, rows, data }) {
-  const { items, activeKeys, favoriteKeys } = data
+  const { activeKeys } = data
   const missing = rows.filter((b) => !activeKeys.has(nameKey(b.name)))
-
-  const removeFromList = (b) => {
-    const match = items.find((i) => !i.checked && nameKey(i.name) === nameKey(b.name))
-    if (match) data.deleteItem(match.id)
-  }
 
   return (
     <>
       {rows.map((b) => (
-        <SwipeRow key={b.id} onDelete={() => data.deleteBlueprintItem(b.id)}>
-          <QuickRow
-            name={b.name}
-            quantity={b.quantity}
-            unit={b.unit}
-            added={activeKeys.has(nameKey(b.name))}
-            isFavorite={favoriteKeys.has(nameKey(b.name))}
-            onAdd={() => data.addItem(b)}
-            onRemove={() => removeFromList(b)}
-            onToggleFavorite={() => data.toggleFavorite(b)}
-          />
-        </SwipeRow>
+        <BlueprintRow key={b.id} b={b} data={data} onList={activeKeys.has(nameKey(b.name))} />
       ))}
 
       {rows.length === 0 && (

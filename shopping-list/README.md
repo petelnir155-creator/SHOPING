@@ -12,6 +12,7 @@ React + Tailwind + Supabase Realtime. Hebrew / RTL, mobile-first, built for two 
      it also removes the unused starter categories.
    - `supabase/003_quantity_note.sql` – quantity units (יח׳ / ק״ג), item notes, and the category rename
      "שתייה וסודה סטרים". **Required for the current app version.**
+   - `supabase/004_blueprint_notes.sql` – notes on base-list items. **Required.**
 3. **Environment variables:** copy `.env.example` to `.env.local` and fill in
    (Dashboard → *Project Settings → API*):
    ```

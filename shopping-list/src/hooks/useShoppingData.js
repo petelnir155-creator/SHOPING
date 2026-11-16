@@ -243,6 +243,18 @@ export function useShoppingData() {
     [run, setBlueprint],
   )
 
+  const updateBlueprintItem = useCallback(
+    (id, patch) => {
+      if (patch.name && blueprint.some((b) => b.id !== id && nameKey(b.name) === nameKey(patch.name))) {
+        setActionError(t.blueprint.duplicate(patch.name))
+        return
+      }
+      setBlueprint((list) => list.map((b) => (b.id === id ? { ...b, ...patch } : b)))
+      run(supabase.from('blueprint_items').update(patch).eq('id', id))
+    },
+    [blueprint, run, setBlueprint],
+  )
+
   // ---------- categories ----------
   const addCategory = useCallback(
     (name) => {
@@ -305,6 +317,7 @@ export function useShoppingData() {
     renameCategory,
     deleteCategory,
     addBlueprintItem,
+    updateBlueprintItem,
     deleteBlueprintItem,
   }
 }
